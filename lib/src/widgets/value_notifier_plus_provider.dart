@@ -53,3 +53,14 @@ class _ValueNotifierPlusProviderInherited<T> extends InheritedWidget {
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
   // coverage:ignore-end
 }
+
+extension ValueNotifierPlusExtension on BuildContext {
+  T of<T extends ValueNotifierPlus<Object?>>() {
+    final provider = dependOnInheritedWidgetOfExactType<
+        _ValueNotifierPlusProviderInherited<T>>();
+    if (provider == null) {
+      throw FlutterError('No ValueNotifierPlusProvider<$T> found in context');
+    }
+    return provider.notifier;
+  }
+}
