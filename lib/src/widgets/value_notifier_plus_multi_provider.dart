@@ -18,7 +18,7 @@ class ValueNotifierPlusMultiProvider extends StatelessWidget {
     for (final provider in providers.reversed) {
       currentBuilder = ValueNotifierPlusProvider(
         notifier: provider.notifier,
-        builder: (context) => currentBuilder,
+        builder: provider.builder,
       );
     }
 
