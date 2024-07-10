@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:value_notifier_plus/src/widgets/value_notifier_plus_multi_provider.dart';
+import 'package:value_notifier_plus/src/widgets/plus_multi_provider.dart';
 import 'package:value_notifier_plus/value_notifier_plus.dart';
 
 import '../../conter_notifier.dart';
@@ -17,14 +17,14 @@ void main() {
     final counterNotifier2 = CounterNotifier2();
 
     await tester.pumpWidget(
-      ValueNotifierPlusMultiProvider(
+      PlusMultiProvider(
         providers: [
-          ValueNotifierPlusProvider<CounterNotifier1>(
-            notifier: counterNotifier1,
+          PlusProvider<CounterNotifier1>(
+            provider: counterNotifier1,
             builder: (context) => Container(),
           ),
-          ValueNotifierPlusProvider<CounterNotifier2>(
-            notifier: counterNotifier2,
+          PlusProvider<CounterNotifier2>(
+            provider: counterNotifier2,
             builder: (context) => Container(),
           ),
         ],

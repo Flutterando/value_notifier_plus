@@ -31,8 +31,8 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ValueNotifierPlusProvider(
-      notifier: CounterNotifier(),
+    return PlusProvider(
+      provider: CounterNotifier(),
       builder: (context) => const MaterialApp(
         home: CounterPage(),
       ),
@@ -45,7 +45,7 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counter = context.of<CounterNotifier>()!;
+    final counter = context.of<CounterNotifier>();
 
     return Scaffold(
       appBar: AppBar(

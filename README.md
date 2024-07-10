@@ -45,8 +45,8 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ValueNotifierPlusProvider(
-      notifier: CounterNotifier(),
+    return PlusProvider(
+      provider: CounterNotifier(),
       child: MaterialApp(
         home: CounterPage(),
       ),
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final counterNotifier = ValueNotifierPlusProvider.of<CounterNotifier>(context);
+    final counterNotifier = context.of<CounterNotifier>();
 
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
@@ -142,7 +142,7 @@ class CounterPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ValueNotifierPlusProvider.of<CounterNotifier>(context).increment();
+          context.of<CounterNotifier>().increment();
         },
         child: Icon(Icons.add),
       ),
@@ -194,7 +194,7 @@ class CounterPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ValueNotifierPlusProvider.of<CounterNotifier>(context).increment();
+          context.of<CounterNotifier>().increment();
         },
         child: Icon(Icons.add),
       ),

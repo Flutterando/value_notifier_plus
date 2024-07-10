@@ -9,10 +9,10 @@ void main() {
     final counterNotifier = CounterNotifier();
 
     await tester.pumpWidget(
-      ValueNotifierPlusProvider<CounterNotifier>(
-        notifier: counterNotifier,
+      PlusProvider<CounterNotifier>(
+        provider: counterNotifier,
         builder: (context) {
-          final notifier = context.of<CounterNotifier>()!;
+          final notifier = context.of<CounterNotifier>();
 
           expect(notifier, counterNotifier);
           return Container();
