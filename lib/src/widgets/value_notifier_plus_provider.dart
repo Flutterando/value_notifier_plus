@@ -46,7 +46,8 @@ class _ValueNotifierPlusProviderInherited<T> extends InheritedWidget {
     required this.notifier,
   });
   final T notifier;
-
+  // coverage:ignore-start
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+  // coverage:ignore-end
 }

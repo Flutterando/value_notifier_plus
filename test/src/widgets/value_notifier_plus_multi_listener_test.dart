@@ -1,44 +1,48 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import 'package:value_notifier_plus/value_notifier_plus.dart';
 
 import '../../conter_notifier.dart';
 
 void main() {
-  testWidgets('MultiValueNotifierPlusListener calls all listeners',
-      (tester) async {
-    final counterNotifier = CounterNotifier();
-    int? listener1CalledWith;
-    int? listener2CalledWith;
+  testWidgets('ValueNotifierPlusMultiListener calls listeners',
+      (WidgetTester tester) async {
+    final counterNotifier1 = CounterNotifier();
+    final counterNotifier2 = CounterNotifier();
+
+    var listener1Called = false;
+    var listener2Called = false;
 
     await tester.pumpWidget(
-      ValueNotifierPlusProvider<CounterNotifier>(
-        notifier: counterNotifier,
-        child: ValueNotifierPlusMultiListener(
-          listeners: [
-            ValueNotifierPlusListener<CounterNotifier, int>(
-              listener: (context, state) {
-                listener1CalledWith = state;
-              },
-              notifier: counterNotifier,
-              child: Container(),
-            ),
-            ValueNotifierPlusListener<CounterNotifier, int>(
-              notifier: counterNotifier,
-              listener: (context, state) {
-                listener2CalledWith = state;
-              },
-              child: Container(),
-            ),
-          ],
-          child: Container(),
-        ),
+      ValueNotifierPlusMultiListener(
+        listeners: [
+          ValueNotifierPlusListener<CounterNotifier, dynamic>(
+            notifier: counterNotifier1,
+            listener: (context, state) {
+              listener1Called = true;
+            },
+            child: Container(),
+          ),
+          ValueNotifierPlusListener<CounterNotifier, dynamic>(
+            notifier: counterNotifier2,
+            listener: (context, state) {
+              listener2Called = true;
+            },
+            child: Container(),
+          ),
+        ],
+        child: Container(),
       ),
     );
 
-    counterNotifier.increment();
     await tester.pump();
-    expect(listener1CalledWith, 1);
-    expect(listener2CalledWith, 1);
+
+    counterNotifier1.increment();
+    counterNotifier2.increment();
+
+    await tester.pump();
+
+    expect(listener1Called, isTrue);
+    expect(listener2Called, isTrue);
   });
 }

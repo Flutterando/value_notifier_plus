@@ -16,6 +16,7 @@ void main() {
             final notifier =
                 ValueNotifierPlusProvider.of<CounterNotifier>(context);
             expect(notifier, counterNotifier);
+
             return Container();
           },
         ),
