@@ -1,6 +1,6 @@
 name: value_notifier_plus
 description: ValueNotifier Plus.
-version: 0.1.0+3
+version: 0.1.0+4
 repository: https://github.com/Flutterando/value_notifier_plus
 
 environment:
