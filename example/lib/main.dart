@@ -53,6 +53,7 @@ class CounterPage extends StatelessWidget {
       ),
       body: Center(
         child: ValueNotifierPlusConsumer<CounterNotifier, int>(
+          notifier: counter,
           listener: (context, state) {
             ScaffoldMessenger.of(context).showSnackBar(
               SnackBar(content: Text('State changed to $state')),

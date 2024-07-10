@@ -7,12 +7,14 @@ import 'value_notifier_plus_provider.dart';
 class ValueNotifierPlusListener<N extends ValueNotifierPlus<S>, S>
     extends StatefulWidget {
   const ValueNotifierPlusListener({
+    super.key,
     required this.listener,
     required this.child,
-    super.key,
+    required this.notifier,
   });
   final ValueNotifierPlusListenerCallback<S> listener;
   final Widget child;
+  final N notifier;
 
   @override
   State<ValueNotifierPlusListener<N, S>> createState() =>

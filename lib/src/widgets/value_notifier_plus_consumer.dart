@@ -2,17 +2,18 @@ import 'package:flutter/widgets.dart';
 
 import '../value_notifier_plus.dart';
 import 'value_notifier_plus_callbacks.dart';
-import 'value_notifier_plus_provider.dart';
 
 class ValueNotifierPlusConsumer<N extends ValueNotifierPlus<S>, S>
     extends StatefulWidget {
   const ValueNotifierPlusConsumer({
+    super.key,
     required this.builder,
     required this.listener,
-    super.key,
+    required this.notifier,
   });
   final ValueNotifierPlusWidgetBuilder<S> builder;
   final ValueNotifierPlusListenerCallback<S> listener;
+  final N notifier;
 
   @override
   State<ValueNotifierPlusConsumer<N, S>> createState() =>
@@ -25,14 +26,16 @@ class _ValueNotifierPlusConsumerState<N extends ValueNotifierPlus<S>, S>
   late S state;
 
   @override
+  void initState() {
+    super.initState();
+    notifier = widget.notifier;
+  }
+
+  @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    final newNotifier = ValueNotifierPlusProvider.of<N>(context);
-    if (notifier != newNotifier) {
-      notifier = newNotifier;
-      state = notifier.state;
-      notifier.addListener(_listener);
-    }
+    state = notifier.state;
+    notifier.addListener(_listener);
   }
 
   @override

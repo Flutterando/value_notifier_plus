@@ -16,6 +16,7 @@ class ValueNotifierPlusMultiListener extends StatelessWidget {
     var current = child;
     for (final listener in listeners.reversed) {
       current = ValueNotifierPlusListener(
+        notifier: listener.notifier,
         key: listener.key,
         listener: listener.listener,
         child: current,
