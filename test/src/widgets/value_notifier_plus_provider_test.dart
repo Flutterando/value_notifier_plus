@@ -11,15 +11,12 @@ void main() {
     await tester.pumpWidget(
       ValueNotifierPlusProvider<CounterNotifier>(
         notifier: counterNotifier,
-        builder: (context) => Builder(
-          builder: (context) {
-            final notifier =
-                ValueNotifierPlusProvider.of<CounterNotifier>(context);
-            expect(notifier, counterNotifier);
+        builder: (context) {
+          final notifier = context.of<CounterNotifier>()!;
 
-            return Container();
-          },
-        ),
+          expect(notifier, counterNotifier);
+          return Container();
+        },
       ),
     );
   });

@@ -35,7 +35,9 @@ class _ValueNotifierPlusProviderState<T extends ValueNotifierPlus<Object?>>
   Widget build(BuildContext context) {
     return _ValueNotifierPlusProviderInherited<T>(
       notifier: widget.notifier,
-      child: widget.builder(context),
+      child: Builder(builder: (context) {
+        return widget.builder(context);
+      }),
     );
   }
 }
