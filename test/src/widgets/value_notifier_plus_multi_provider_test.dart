@@ -13,17 +13,16 @@ void main() {
 
     await tester.pumpWidget(
       ValueNotifierPlusMultiProvider(
-        providers: [
-          ValueNotifierPlusProvider<CounterNotifier>(
-            notifier: counterNotifier1,
-            builder: (context) => Container(),
-          ),
-          ValueNotifierPlusProvider<CounterNotifier>(
-            notifier: counterNotifier2,
-            builder: (context) => Container(),
-          ),
-        ],
-        builder: (context) => Builder(
+          providers: [
+            ValueNotifierPlusProvider<CounterNotifier>(
+              notifier: counterNotifier1,
+              builder: (context) => Container(),
+            ),
+            ValueNotifierPlusProvider<CounterNotifier>(
+              notifier: counterNotifier2,
+              builder: (context) => Container(),
+            ),
+          ],
           builder: (context) {
             final notifier1 =
                 ValueNotifierPlusProvider.of<CounterNotifier>(context);
@@ -33,9 +32,7 @@ void main() {
             expect(notifier1, counterNotifier1);
             expect(notifier2, counterNotifier2);
             return Container();
-          },
-        ),
-      ),
+          }),
     );
   });
 }

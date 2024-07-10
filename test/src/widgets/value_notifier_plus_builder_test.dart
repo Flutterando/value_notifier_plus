@@ -10,14 +10,11 @@ void main() {
     final counterNotifier = CounterNotifier();
 
     await tester.pumpWidget(
-      ValueNotifierPlusProvider<CounterNotifier>(
+      ValueNotifierPlusBuilder<CounterNotifier, int>(
         notifier: counterNotifier,
-        builder: (context) => ValueNotifierPlusBuilder<CounterNotifier, int>(
-          notifier: counterNotifier,
-          builder: (context, state) {
-            return Text('$state', textDirection: TextDirection.ltr);
-          },
-        ),
+        builder: (context, state) {
+          return Text('$state', textDirection: TextDirection.ltr);
+        },
       ),
     );
 
