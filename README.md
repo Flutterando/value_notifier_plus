@@ -235,3 +235,8 @@ Contribuições são bem-vindas! Por favor, abra um pull request ou uma issue no
 ### Licença
 
 Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+
+[flutter_install_link]: https://docs.flutter.dev/get-started/install
+[github_actions_link]: https://docs.github.com/en/actions/learn-github-actions
+[license_badge]: https://img.shields.io/badge/license-MIT-blue.svg
+[license_link]: https://opensource.org/licenses/MIT
