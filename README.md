@@ -63,6 +63,7 @@ class CounterPage extends StatelessWidget {
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
         child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+          notifier: counterNotifier,
           builder: (context, state) {
             return Text('Counter: $state');
           },
@@ -90,12 +91,14 @@ class CounterPage extends StatelessWidget {
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
         child: ValueNotifierPlusListener<CounterNotifier, int>(
+          notifier: counterNotifier,
           listener: (context, state) {
             if (state == 10) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 10!')));
             }
           },
           child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+            notifier: counterNotifier,
             builder: (context, state) {
               return Text('Counter: $state');
             },
@@ -126,6 +129,7 @@ class CounterPage extends StatelessWidget {
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
         child: ValueNotifierPlusConsumer<CounterNotifier, int>(
+          notifier: counterNotifier,
           listener: (context, state) {
             if (state == 10) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 10!')));
@@ -167,6 +171,7 @@ class CounterPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 5!')));
                 }
               },
+              notifier: counterNotifier,
               child: Container(),
             ),
             ValueNotifierPlusListener<CounterNotifier, int>(
@@ -175,10 +180,12 @@ class CounterPage extends StatelessWidget {
                   ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 10!')));
                 }
               },
+              notifier: counter,
               child: Container(),
             ),
           ],
           child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+            notifier: counter,
             builder: (context, state) {
               return Text('Counter: $state');
             },
