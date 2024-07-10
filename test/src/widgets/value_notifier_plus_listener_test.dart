@@ -13,7 +13,7 @@ void main() {
     await tester.pumpWidget(
       ValueNotifierPlusProvider<CounterNotifier>(
         notifier: counterNotifier,
-        child: ValueNotifierPlusListener<CounterNotifier, int>(
+        builder: (context) => ValueNotifierPlusListener<CounterNotifier, int>(
           listener: (context, state) {
             listenerCalledWith = state;
           },

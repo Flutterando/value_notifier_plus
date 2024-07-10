@@ -33,7 +33,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ValueNotifierPlusProvider(
       notifier: CounterNotifier(),
-      child: const MaterialApp(
+      builder: (context) => const MaterialApp(
         home: CounterPage(),
       ),
     );

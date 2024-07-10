@@ -6,10 +6,10 @@ class ValueNotifierPlusProvider<T extends ValueNotifierPlus<Object?>>
     extends StatefulWidget {
   const ValueNotifierPlusProvider({
     required this.notifier,
-    required this.child,
+    required this.builder,
     super.key,
   });
-  final Widget child;
+  final WidgetBuilder builder;
   final T notifier;
 
   @override
@@ -35,7 +35,7 @@ class _ValueNotifierPlusProviderState<T extends ValueNotifierPlus<Object?>>
   Widget build(BuildContext context) {
     return _ValueNotifierPlusProviderInherited<T>(
       notifier: widget.notifier,
-      child: widget.child,
+      child: widget.builder(context),
     );
   }
 }

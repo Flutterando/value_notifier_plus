@@ -12,7 +12,7 @@ void main() {
     await tester.pumpWidget(
       ValueNotifierPlusProvider<CounterNotifier>(
         notifier: counterNotifier,
-        child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+        builder: (context) => ValueNotifierPlusBuilder<CounterNotifier, int>(
           notifier: counterNotifier,
           builder: (context, state) {
             return Text('$state', textDirection: TextDirection.ltr);
