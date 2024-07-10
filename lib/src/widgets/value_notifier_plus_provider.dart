@@ -16,10 +16,10 @@ class ValueNotifierPlusProvider<T extends ValueNotifierPlus<Object?>>
   State<ValueNotifierPlusProvider<T>> createState() =>
       _ValueNotifierPlusProviderState<T>();
 
-  static T of<T extends ValueNotifierPlus<Object?>>(BuildContext context) {
+  static T? of<T extends ValueNotifierPlus<Object?>>(BuildContext context) {
     final provider = context.dependOnInheritedWidgetOfExactType<
         _ValueNotifierPlusProviderInherited<T>>();
-    return provider!.notifier;
+    return provider?.notifier;
   }
 }
 
@@ -35,9 +35,7 @@ class _ValueNotifierPlusProviderState<T extends ValueNotifierPlus<Object?>>
   Widget build(BuildContext context) {
     return _ValueNotifierPlusProviderInherited<T>(
       notifier: widget.notifier,
-      child: Builder(
-        builder: (context) => widget.builder(context),
-      ),
+      child: widget.builder(context),
     );
   }
 }
@@ -49,13 +47,14 @@ class _ValueNotifierPlusProviderInherited<T> extends InheritedWidget {
   });
   final T notifier;
   // coverage:ignore-start
+
   @override
   bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
   // coverage:ignore-end
 }
 
 extension ValueNotifierPlusExtension on BuildContext {
-  T of<T extends ValueNotifierPlus<Object?>>() {
+  T? of<T extends ValueNotifierPlus<Object?>>() {
     final provider = dependOnInheritedWidgetOfExactType<
         _ValueNotifierPlusProviderInherited<T>>();
     if (provider == null) {

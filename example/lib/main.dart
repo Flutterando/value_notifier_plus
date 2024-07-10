@@ -45,7 +45,7 @@ class CounterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counter = ValueNotifierPlusProvider.of<CounterNotifier>(context);
+    final counter = context.of<CounterNotifier>()!;
 
     return Scaffold(
       appBar: AppBar(

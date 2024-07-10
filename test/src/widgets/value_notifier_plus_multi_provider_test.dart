@@ -19,11 +19,11 @@ void main() {
     await tester.pumpWidget(
       ValueNotifierPlusMultiProvider(
         providers: [
-          ValueNotifierPlusProvider<CounterNotifier>(
+          ValueNotifierPlusProvider<CounterNotifier1>(
             notifier: counterNotifier1,
             builder: (context) => Container(),
           ),
-          ValueNotifierPlusProvider<CounterNotifier>(
+          ValueNotifierPlusProvider<CounterNotifier2>(
             notifier: counterNotifier2,
             builder: (context) => Container(),
           ),
