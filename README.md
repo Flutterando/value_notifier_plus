@@ -4,7 +4,7 @@
 
 ## ValueNotifierPlus
 
-`ValueNotifierPlus` é um pacote que expande as funcionalidades de `ValueNotifier` do Flutter, oferecendo uma alternativa ao `Cubit` utilizando `ValueNotifier` em vez de `Streams`. Ele inclui suporte para observadores, múltiplos listeners e widgets helpers, como `ValueNotifierPlusBuilder`, `ValueNotifierPlusListener`, `ValueNotifierPlusConsumer` e `MultiValueNotifierPlusListener`.
+`ValueNotifierPlus` é um pacote que expande as funcionalidades de `ValueNotifier` do Flutter, oferecendo uma alternativa ao `Cubit` utilizando `ValueNotifier` em vez de `Streams`.`ValueNotifier` é mais eficiente em termos de desempenho porque não precisa lidar com a complexidade de um sistema de fluxo assíncrono. Isso pode ser importante em cenários de alta frequência de atualização de UI. Ele inclui suporte para observadores, múltiplos listeners e widgets helpers, como `ValueNotifierPlusBuilder`, `ValueNotifierPlusListener`, `ValueNotifierPlusConsumer` e `MultiValueNotifierPlusListener`.
 
 ### Instalação
 
