@@ -2,7 +2,6 @@
 
 [![License: MIT][license_badge]][license_link]
 
-## ValueNotifierPlus
 
 `ValueNotifierPlus` é um pacote que expande as funcionalidades de `ValueNotifier` do Flutter, oferecendo uma alternativa ao `Cubit` utilizando `ValueNotifier` em vez de `Streams`.`ValueNotifier` é mais eficiente em termos de desempenho porque não precisa lidar com a complexidade de um sistema de fluxo assíncrono. Isso pode ser importante em cenários de alta frequência de atualização de UI. Ele inclui suporte para observadores, múltiplos listeners e widgets helpers, como `ValueNotifierPlusBuilder`, `ValueNotifierPlusListener`, `ValueNotifierPlusConsumer` e `MultiValueNotifierPlusListener`.
 
@@ -32,7 +31,7 @@ class CounterNotifier extends ValueNotifierPlus<int> {
 }
 ```
 
-#### 2. Usando o ValueNotifierPlusProvider
+#### 2. Usando o PlusProvider
 
 ```dart
 import 'package:flutter/material.dart';
@@ -107,7 +106,7 @@ class CounterPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          ValueNotifierPlusProvider.of<CounterNotifier>(context).increment();
+          context.of<CounterNotifier>().increment();
         },
         child: Icon(Icons.add),
       ),
@@ -151,7 +150,7 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-#### 5. Usando o MultiValueNotifierPlusListener
+#### 5. Usando o ValueNotifierPlusMultiListener
 
 ```dart
 import 'package:flutter/material.dart';
@@ -163,7 +162,7 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: MultiValueNotifierPlusListener(
+        child: ValueNotifierPlusMultiListener(
           listeners: [
             ValueNotifierPlusListener<CounterNotifier, int>(
               listener: (context, state) {
