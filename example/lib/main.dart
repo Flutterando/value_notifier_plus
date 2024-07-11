@@ -33,8 +33,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return PlusProvider(
       provider: CounterNotifier(),
-      builder: (context) => const MaterialApp(
-        home: CounterPage(),
+      child: Builder(
+        builder: (context) => const MaterialApp(
+          home: CounterPage(),
+        ),
       ),
     );
   }

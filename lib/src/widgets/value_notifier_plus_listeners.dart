@@ -2,8 +2,8 @@ import 'package:flutter/widgets.dart';
 
 import 'value_notifier_plus_listener.dart';
 
-class ValueNotifierPlusMultiListener extends StatelessWidget {
-  const ValueNotifierPlusMultiListener({
+class ValueNotifierPlusListeners extends StatelessWidget {
+  const ValueNotifierPlusListeners({
     required this.listeners,
     required this.child,
     super.key,

@@ -2,24 +2,28 @@
 
 [![License: MIT][license_badge]][license_link]
 
+`ValueNotifierPlus` é um pacote que expande as funcionalidades de `ValueNotifier` do Flutter, oferecendo uma alternativa ao `Cubit` utilizando `ValueNotifier` em vez de `Streams`. `ValueNotifier` é mais eficiente em termos de desempenho porque não precisa lidar com a complexidade de um sistema de fluxo assíncrono. Isso pode ser importante em cenários de alta frequência de atualização de UI.
 
-`ValueNotifierPlus` é um pacote que expande as funcionalidades de `ValueNotifier` do Flutter, oferecendo uma alternativa ao `Cubit` utilizando `ValueNotifier` em vez de `Streams`.`ValueNotifier` é mais eficiente em termos de desempenho porque não precisa lidar com a complexidade de um sistema de fluxo assíncrono. Isso pode ser importante em cenários de alta frequência de atualização de UI.
-
-### Instalação
+## Instalação
 
 Adicione o `ValueNotifierPlus` ao seu arquivo `pubspec.yaml`:
 
 ```yaml
 dependencies:
   value_notifier_plus: x.x.x
-
 ```
 
-### Uso
+## O que é o `ValueNotifierPlus`
 
-Ele inclui suporte para observadores, múltiplos listeners e widgets helpers, como `ValueNotifierPlusBuilder`, `ValueNotifierPlusListener`, `ValueNotifierPlusConsumer` e `MultiValueNotifierPlusListener`.
+O `ValueNotifierPlus` é uma classe que estende o `ValueNotifier` padrão do Flutter, adicionando capacidades adicionais como estados imutáveis e integração simplificada com a árvore de widgets. Ele facilita o gerenciamento de estado de forma mais eficiente e menos verbosa, sem a necessidade de streams e eventos complexos.
 
-#### 1. Criando um ValueNotifierPlus
+## Widgets do `ValueNotifierPlus`
+
+### `ValueNotifierPlusBuilder`
+
+O `ValueNotifierPlusBuilder` é um widget que reconstrói sua árvore de widgets sempre que o valor do `ValueNotifierPlus` muda. É similar ao `BlocBuilder` do pacote `flutter_bloc`.
+
+#### Exemplo de Uso:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -31,13 +35,6 @@ class CounterNotifier extends ValueNotifierPlus<int> {
   void increment() => emit(state + 1);
   void decrement() => emit(state - 1);
 }
-```
-
-#### 2. Usando o PlusProvider
-
-```dart
-import 'package:flutter/material.dart';
-import 'value_notifier_plus.dart';
 
 void main() {
   runApp(MyApp());
@@ -79,7 +76,11 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-#### 3. Usando o ValueNotifierPlusListener
+### `ValueNotifierPlusListener`
+
+O `ValueNotifierPlusListener` é um widget que executa uma função sempre que o valor do `ValueNotifierPlus` muda, sem reconstruir a árvore de widgets. É similar ao `BlocListener` do pacote `flutter_bloc`.
+
+#### Exemplo de Uso:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -88,6 +89,8 @@ import 'value_notifier_plus.dart';
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final counterNotifier = context.of<CounterNotifier>();
+
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
@@ -108,7 +111,7 @@ class CounterPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.of<CounterNotifier>().increment();
+          counterNotifier.increment();
         },
         child: Icon(Icons.add),
       ),
@@ -117,7 +120,11 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-#### 4. Usando o ValueNotifierPlusConsumer
+### `ValueNotifierPlusConsumer`
+
+O `ValueNotifierPlusConsumer` combina a funcionalidade de `ValueNotifierPlusListener` e `ValueNotifierPlusBuilder`, permitindo ouvir e reconstruir a árvore de widgets em resposta a mudanças de estado. É similar ao `BlocConsumer` do pacote `flutter_bloc`.
+
+#### Exemplo de Uso:
 
 ```dart
 import 'package:flutter/material.dart';
@@ -126,6 +133,8 @@ import 'value_notifier_plus.dart';
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final counterNotifier = context.of<CounterNotifier>();
+
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
@@ -143,7 +152,7 @@ class CounterPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.of<CounterNotifier>().increment();
+          counterNotifier.increment();
         },
         child: Icon(Icons.add),
       ),
@@ -152,50 +161,106 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-#### 5. Usando o ValueNotifierPlusMultiListener
+### `ValueNotifierPlusListeners e ValueNotifierPlusProviders`
+
+O `ValueNotifierPlusListeners e ValueNotifierPlusProviders` permite registrar múltiplos listeners e providers para diferentes `ValueNotifierPlus` ao mesmo tempo, simplificando o código quando há vários observadores. É similar ao `MultiBlocListener e MultiBlocProvider` do pacote `flutter_bloc`.
+
+#### Exemplo de Uso:
 
 ```dart
 import 'package:flutter/material.dart';
 import 'value_notifier_plus.dart';
 
+class CounterNotifier extends ValueNotifierPlus<int> {
+  CounterNotifier() : super(0);
+
+  void increment() => emit(state + 1);
+  void decrement() => emit(state - 1);
+}
+
+class AnotherNotifier extends ValueNotifierPlus<int> {
+  AnotherNotifier() : super(0);
+
+  void increment() => emit(state + 1);
+  void decrement() => emit(state - 1);
+}
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return ValueNotifierPlusProviders(
+      providers: [
+        CounterNotifier(),
+        AnotherNotifier(),
+      ],
+      child: Builder(
+        builder: (context) {
+          return const MaterialApp(
+            home: CounterPage(),
+          );
+        },
+      ),
+    );
+  }
+}
+
 class CounterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final counterNotifier = context.of<CounterNotifier>();
+    final anotherNotifier = context.of<AnotherNotifier>();
+
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: ValueNotifierPlusMultiListener(
+        child: ValueNotifierPlusListeners(
           listeners: [
             ValueNotifierPlusListener<CounterNotifier, int>(
+              notifier: counterNotifier,
               listener: (context, state) {
                 if (state == 5) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 5!')));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Counter Reached 5!')));
                 }
               },
-              notifier: counterNotifier,
               child: Container(),
             ),
-            ValueNotifierPlusListener<CounterNotifier, int>(
+            ValueNotifierPlusListener<AnotherNotifier, int>(
+              notifier: anotherNotifier,
               listener: (context, state) {
                 if (state == 10) {
-                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 10!')));
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('AnotherNotifier Reached 10!')));
                 }
               },
-              notifier: counter,
               child: Container(),
             ),
           ],
-          child: ValueNotifierPlusBuilder<CounterNotifier, int>(
-            notifier: counter,
-            builder: (context, state) {
-              return Text('Counter: $state');
-            },
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              ValueNotifierPlusBuilder<CounterNotifier, int>(
+                notifier: counterNotifier,
+                builder: (context, state) {
+                  return Text('Counter: $state');
+                },
+              ),
+              ValueNotifierPlusBuilder<AnotherNotifier, int>(
+                notifier: anotherNotifier,
+                builder: (context, state) {
+                  return Text('AnotherNotifier: $state');
+                },
+              ),
+            ],
           ),
         ),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          context.of<CounterNotifier>().increment();
+          counterNotifier.increment();
+          anotherNotifier.increment();
         },
         child: Icon(Icons.add),
       ),
@@ -204,7 +269,7 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-### Observador
+## Observador
 
 Você pode adicionar um observador para monitorar mudanças de estado nos `ValueNotifierPlus`:
 
@@ -228,7 +293,7 @@ void main() {
 }
 ```
 
-### Testes
+## Testes
 
 Para rodar os testes, execute o seguinte comando no terminal:
 
@@ -236,11 +301,11 @@ Para rodar os testes, execute o seguinte comando no terminal:
 flutter test
 ```
 
-### Contribuições
+## Contribuições
 
 Contribuições são bem-vindas! Por favor, abra um pull request ou uma issue no GitHub se encontrar algum problema ou tiver sugestões de melhorias.
 
-### Licença
+## Licença
 
 Este projeto está licenciado sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
 

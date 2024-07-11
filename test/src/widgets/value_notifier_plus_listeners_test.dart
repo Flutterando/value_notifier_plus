@@ -14,7 +14,7 @@ void main() {
     var listener2Called = false;
 
     await tester.pumpWidget(
-      ValueNotifierPlusMultiListener(
+      ValueNotifierPlusListeners(
         listeners: [
           ValueNotifierPlusListener<CounterNotifier, dynamic>(
             notifier: counterNotifier1,

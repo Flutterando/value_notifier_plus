@@ -3,11 +3,11 @@ import 'package:flutter/widgets.dart';
 class PlusProvider<T> extends StatefulWidget {
   const PlusProvider({
     required this.provider,
-    required this.builder,
+    required this.child,
     super.key,
   });
 
-  final WidgetBuilder builder;
+  final Widget child;
   final T provider;
 
   @override
@@ -25,9 +25,7 @@ class _PlusProviderState<T> extends State<PlusProvider<T>> {
   Widget build(BuildContext context) {
     return _PlusProviderInherited<T>(
       provider: widget.provider,
-      child: Builder(
-        builder: (context) => widget.builder(context),
-      ),
+      child: widget.child,
     );
   }
 }

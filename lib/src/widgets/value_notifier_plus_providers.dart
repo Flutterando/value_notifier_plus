@@ -1,24 +1,24 @@
 import 'package:flutter/widgets.dart';
-import 'plus_provider.dart';
+import 'value_notifier_plus_provider.dart';
 
-class PlusMultiProvider extends StatelessWidget {
+class ValueNotifierPlusProviders extends StatelessWidget {
   final List<PlusProvider> providers;
-  final WidgetBuilder builder;
+  final Widget child;
 
-  const PlusMultiProvider({
+  const ValueNotifierPlusProviders({
     super.key,
     required this.providers,
-    required this.builder,
+    required this.child,
   });
 
   @override
   Widget build(BuildContext context) {
-    Widget currentBuilder = builder(context);
+    Widget currentBuilder = child;
 
     for (final provider in providers.reversed) {
       currentBuilder = PlusProvider(
         provider: provider.provider,
-        builder: provider.builder,
+        child: provider.child,
       );
     }
 
