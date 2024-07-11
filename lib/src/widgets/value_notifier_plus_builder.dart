@@ -1,5 +1,5 @@
 import 'package:flutter/widgets.dart';
-import 'package:value_notifier_plus/value_notifier_plus.dart';
+import '../../value_notifier_plus.dart';
 
 import 'value_notifier_plus_callbacks.dart';
 

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-import 'package:value_notifier_plus/src/widgets/value_notifier_plus_providers.dart';
 import 'package:value_notifier_plus/value_notifier_plus.dart';
 
 import '../../conter_notifier.dart';
