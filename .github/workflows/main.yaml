@@ -19,7 +19,18 @@ jobs:
       includes: "**/*.md"
       modified_files_only: false
 
-  build:
+  build-stable:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
     with:
       flutter_channel: stable
+
+  build-beta:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: beta
+
+  build-dev:
+    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/flutter_package.yml@v1
+    with:
+      flutter_channel: dev
+        
