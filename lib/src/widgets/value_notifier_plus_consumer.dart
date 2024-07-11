@@ -6,11 +6,11 @@ import 'value_notifier_plus_callbacks.dart';
 class ValueNotifierPlusConsumer<N extends ValueNotifierPlus<S>, S>
     extends StatefulWidget {
   const ValueNotifierPlusConsumer({
-    super.key,
+    Key? key,
     required this.builder,
     required this.listener,
     required this.notifier,
-  });
+  }) : super(key: key);
   final ValueNotifierPlusWidgetBuilder<S> builder;
   final ValueNotifierPlusListenerCallback<S> listener;
   final N notifier;

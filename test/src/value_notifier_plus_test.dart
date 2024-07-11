@@ -8,6 +8,13 @@ void main() {
       final notifier = CounterNotifier();
       expect(notifier.state, 0);
     });
+    test('dispose listener', () {
+      final notifier = CounterNotifier();
+      notifier.addListener(() {});
+      notifier.close();
+      // ignore: invalid_use_of_protected_member
+      expect(notifier.hasListeners, false);
+    });
 
     test('increment updates state to 1', () {
       final notifier = CounterNotifier();

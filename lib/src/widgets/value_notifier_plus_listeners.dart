@@ -4,10 +4,10 @@ import 'value_notifier_plus_listener.dart';
 
 class ValueNotifierPlusListeners extends StatelessWidget {
   const ValueNotifierPlusListeners({
+    Key? key,
     required this.listeners,
     required this.child,
-    super.key,
-  });
+  }) : super(key: key);
   final List<ValueNotifierPlusListener> listeners;
   final Widget child;
 

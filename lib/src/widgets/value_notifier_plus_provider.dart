@@ -2,10 +2,10 @@ import 'package:flutter/widgets.dart';
 
 class PlusProvider<T> extends StatefulWidget {
   const PlusProvider({
+    Key? key,
     required this.provider,
     required this.child,
-    super.key,
-  });
+  }) : super(key: key);
 
   final Widget child;
   final T provider;
@@ -13,39 +13,39 @@ class PlusProvider<T> extends StatefulWidget {
   @override
   State<PlusProvider<T>> createState() => _PlusProviderState<T>();
 
-  static T? of<T>(BuildContext context) {
+  static T of<T>(BuildContext context) {
     final provider =
-        context.dependOnInheritedWidgetOfExactType<_PlusProviderInherited<T>>();
-    return provider?.provider;
+        context.dependOnInheritedWidgetOfExactType<PlusProviderInherited<T>>();
+    return provider!.provider;
   }
 }
 
 class _PlusProviderState<T> extends State<PlusProvider<T>> {
   @override
   Widget build(BuildContext context) {
-    return _PlusProviderInherited<T>(
+    return PlusProviderInherited<T>(
       provider: widget.provider,
       child: widget.child,
     );
   }
 }
 
-class _PlusProviderInherited<T> extends InheritedWidget {
-  const _PlusProviderInherited({
-    required super.child,
-    required this.provider,
-  });
-
+class PlusProviderInherited<T> extends InheritedWidget {
   final T provider;
 
+  const PlusProviderInherited(
+      {Key? key, required Widget child, required this.provider})
+      : super(key: key, child: child);
+
   @override
-  bool updateShouldNotify(covariant InheritedWidget oldWidget) => false;
+  bool updateShouldNotify(covariant InheritedWidget oldWidget) =>
+      oldWidget.child != child;
 }
 
 extension PlusProviderExtension on BuildContext {
   T of<T>() {
     final provider =
-        dependOnInheritedWidgetOfExactType<_PlusProviderInherited<T>>();
+        dependOnInheritedWidgetOfExactType<PlusProviderInherited<T>>();
     if (provider == null) {
       throw FlutterError('No PlusProvider<$T> found in context');
     }

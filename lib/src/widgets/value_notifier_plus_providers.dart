@@ -7,10 +7,10 @@ class ValueNotifierPlusProviders extends StatelessWidget {
   final Widget child;
 
   const ValueNotifierPlusProviders({
-    super.key,
+    Key? key,
     required this.providers,
     required this.child,
-  });
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
