@@ -1,6 +1,6 @@
 name: value_notifier_plus
 description: ValueNotifierPlus é um pacote que expande as funcionalidades de ValueNotifier do Flutter.
-version: 0.1.0+9
+version: 0.1.0+10
 repository: https://github.com/Flutterando/value_notifier_plus
 topics:
   - reactive-programming
@@ -11,8 +11,8 @@ topics:
 
 
 environment:
-  sdk: ^3.4.0
-  flutter: '>=3.0.0'
+  sdk: ">=2.12.0 <4.0.0"
+
 
 dependencies:
   flutter:
