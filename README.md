@@ -10,7 +10,7 @@ Adicione o `ValueNotifierPlus` ao seu arquivo `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  value_notifier_plus: x.x.x
+  value_notifier_plus: ^x.x.x
 ```
 
 ## O que é o `ValueNotifierPlus`
