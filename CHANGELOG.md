@@ -1,10 +1,10 @@
 # Changelog
 
-## [0.1.0+11] - 2024-07-11
+## [0.3.0+1] - 2024-07-11
 
 ### Added
 
-- Implemented Providers, Listeners, Consumer,Builder and Observer
+- Implemented Providers, Listeners, Consumer,Builder and Observer Plus
 - Added 100% unit tests coverage
 - Added documentation in README.md
 - Added Changelog based in [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/)
