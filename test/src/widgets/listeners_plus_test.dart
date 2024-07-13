@@ -5,8 +5,7 @@ import 'package:value_notifier_plus/value_notifier_plus.dart';
 import '../../conter_notifier.dart';
 
 void main() {
-  testWidgets('ValueNotifierPlusMultiListener calls listeners',
-      (WidgetTester tester) async {
+  testWidgets('ListenersPlus calls listeners', (WidgetTester tester) async {
     final counterNotifier1 = CounterNotifier();
     final counterNotifier2 = CounterNotifier();
 
@@ -14,16 +13,16 @@ void main() {
     var listener2Called = false;
 
     await tester.pumpWidget(
-      ValueNotifierPlusListeners(
+      ListenersPlus(
         listeners: [
-          ValueNotifierPlusListener<CounterNotifier, dynamic>(
+          ListenerPlus<CounterNotifier, dynamic>(
             notifier: counterNotifier1,
             listener: (context, state) {
               listener1Called = true;
             },
             child: Container(),
           ),
-          ValueNotifierPlusListener<CounterNotifier, dynamic>(
+          ListenerPlus<CounterNotifier, dynamic>(
             notifier: counterNotifier2,
             listener: (context, state) {
               listener2Called = true;

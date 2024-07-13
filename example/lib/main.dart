@@ -10,7 +10,7 @@ class CounterNotifier extends ValueNotifierPlus<int> {
   void decrement() => emit(state - 1);
 }
 
-class MyObserver extends ValueNotifierPlusObserver {
+class MyObserver extends ObserverPlus {
   @override
   void onChange<ValueNotifierPlusType extends ValueNotifierPlus>(
     ValueNotifierPlusType notifier,
@@ -31,7 +31,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PlusProvider(
+    return ProviderPlus(
       provider: CounterNotifier(),
       child: Builder(
         builder: (context) => const MaterialApp(
@@ -54,7 +54,7 @@ class CounterPage extends StatelessWidget {
         title: const Text('Counter Notifier'),
       ),
       body: Center(
-        child: ValueNotifierPlusConsumer<CounterNotifier, int>(
+        child: ConsumerPlus<CounterNotifier, int>(
           notifier: counter,
           listener: (context, state) {
             ScaffoldMessenger.of(context).showSnackBar(

@@ -1,6 +1,6 @@
-export 'value_notifier_plus_consumer.dart';
-export 'value_notifier_plus_listener.dart';
-export 'value_notifier_plus_builder.dart';
-export 'value_notifier_plus_listeners.dart';
-export 'value_notifier_plus_provider.dart';
-export 'value_notifier_plus_providers.dart';
+export 'consumer_plus.dart';
+export 'listener_plus.dart';
+export 'builder_plus.dart';
+export 'listeners_plus.dart';
+export 'provider_plus.dart';
+export 'providers_plus.dart';

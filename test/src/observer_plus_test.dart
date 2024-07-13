@@ -4,7 +4,7 @@ import 'package:value_notifier_plus/value_notifier_plus.dart';
 import '../conter_notifier.dart';
 
 void main() {
-  group('ValueNotifierPlusObserver', () {
+  group('ObserverPlus', () {
     test('observer is notified on state change', () {
       final observer = TestObserver();
       ValueNotifierPlus.observer = observer;
@@ -35,7 +35,7 @@ void main() {
   });
 }
 
-class TestObserver extends ValueNotifierPlusObserver {
+class TestObserver extends ObserverPlus {
   final List<Object?> states = [];
 
   @override

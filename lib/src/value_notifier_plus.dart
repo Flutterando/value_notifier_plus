@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-import 'value_notifier_plus_observer.dart';
+import 'observer_plus.dart';
 
 class ValueNotifierPlus<State> extends ChangeNotifier implements Listenable {
-  static ValueNotifierPlusObserver? observer;
+  static ObserverPlus? observer;
 
   ValueNotifierPlus(this._state) {
     if (kFlutterMemoryAllocationsEnabled) {

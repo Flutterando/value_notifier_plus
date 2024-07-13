@@ -9,20 +9,19 @@ class CounterNotifier1 extends CounterNotifier {}
 class CounterNotifier2 extends CounterNotifier {}
 
 void main() {
-  testWidgets(
-      'ValueNotifierPlusMultiProvider provides multiple notifiers using builders',
+  testWidgets('ProvidersPlus provides multiple notifiers using builders',
       (tester) async {
     final counterNotifier1 = CounterNotifier1();
     final counterNotifier2 = CounterNotifier2();
 
     await tester.pumpWidget(
-      ValueNotifierPlusProviders(
+      ProvidersPlus(
         providers: [
-          PlusProvider<CounterNotifier1>(
+          ProviderPlus<CounterNotifier1>(
             provider: counterNotifier1,
             child: Container(),
           ),
-          PlusProvider<CounterNotifier2>(
+          ProviderPlus<CounterNotifier2>(
             provider: counterNotifier2,
             child: Container(),
           ),

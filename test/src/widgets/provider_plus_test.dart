@@ -10,11 +10,11 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: PlusProvider<CounterNotifier>(
+        home: ProviderPlus<CounterNotifier>(
           provider: counterNotifier,
           child: Builder(
             builder: (context) {
-              final counterProvider = PlusProvider.of<CounterNotifier>(context);
+              final counterProvider = ProviderPlus.of<CounterNotifier>(context);
               final counterOf = context.of<CounterNotifier>();
               expect(counterProvider, counterNotifier);
               expect(counterOf, counterNotifier);
@@ -30,7 +30,7 @@ void main() {
 
     await tester.pumpWidget(
       MaterialApp(
-        home: PlusProvider<CounterNotifier>(
+        home: ProviderPlus<CounterNotifier>(
           provider: counterNotifier,
           child: Builder(
             builder: (context) {

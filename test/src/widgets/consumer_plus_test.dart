@@ -5,16 +5,19 @@ import 'package:value_notifier_plus/value_notifier_plus.dart';
 import '../../conter_notifier.dart';
 
 void main() {
-  testWidgets('ValueNotifierPlusBuilder rebuilds when state changes',
-      (tester) async {
+  testWidgets('ConsumerPlus rebuilds and calls listener', (tester) async {
     final counterNotifier = CounterNotifier();
+    int? listenerCalledWith;
 
     await tester.pumpWidget(
-      ValueNotifierPlusBuilder<CounterNotifier, int>(
-        notifier: counterNotifier,
+      ConsumerPlus<CounterNotifier, int>(
+        listener: (context, state) {
+          listenerCalledWith = state;
+        },
         builder: (context, state) {
           return Text('$state', textDirection: TextDirection.ltr);
         },
+        notifier: counterNotifier,
       ),
     );
 
@@ -22,5 +25,6 @@ void main() {
     counterNotifier.increment();
     await tester.pump();
     expect(find.text('1'), findsOneWidget);
+    expect(listenerCalledWith, 1);
   });
 }

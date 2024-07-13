@@ -21,7 +21,7 @@ O `ValueNotifierPlus` é uma classe que estende o `ValueNotifier` padrão do Flu
 
 ### `ValueNotifierPlusBuilder`
 
-O `ValueNotifierPlusBuilder` é um widget que reconstrói sua árvore de widgets sempre que o valor do `ValueNotifierPlus` muda. É similar ao `BlocBuilder` do pacote `flutter_bloc`.
+O `BuilderPlus` é um widget que reconstrói sua árvore de widgets sempre que o valor do `ValueNotifierPlus` muda. É similar ao `BlocBuilder` do pacote `flutter_bloc`.
 
 #### Exemplo de Uso:
 
@@ -60,7 +60,7 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+        child: BuilderPlus<CounterNotifier, int>(
           notifier: counterNotifier,
           builder: (context, state) {
             return Text('Counter: $state');
@@ -76,9 +76,9 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-### `ValueNotifierPlusListener`
+### `ListenerPlus`
 
-O `ValueNotifierPlusListener` é um widget que executa uma função sempre que o valor do `ValueNotifierPlus` muda, sem reconstruir a árvore de widgets. É similar ao `BlocListener` do pacote `flutter_bloc`.
+O `ListenerPlus` é um widget que executa uma função sempre que o valor do `ValueNotifierPlus` muda, sem reconstruir a árvore de widgets. É similar ao `BlocListener` do pacote `flutter_bloc`.
 
 #### Exemplo de Uso:
 
@@ -94,14 +94,14 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: ValueNotifierPlusListener<CounterNotifier, int>(
+        child: ListenerPlus<CounterNotifier, int>(
           notifier: counterNotifier,
           listener: (context, state) {
             if (state == 10) {
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text('Reached 10!')));
             }
           },
-          child: ValueNotifierPlusBuilder<CounterNotifier, int>(
+          child: ListenerPlus<CounterNotifier, int>(
             notifier: counterNotifier,
             builder: (context, state) {
               return Text('Counter: $state');
@@ -120,9 +120,9 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-### `ValueNotifierPlusConsumer`
+### `ConsumerPlus`
 
-O `ValueNotifierPlusConsumer` combina a funcionalidade de `ValueNotifierPlusListener` e `ValueNotifierPlusBuilder`, permitindo ouvir e reconstruir a árvore de widgets em resposta a mudanças de estado. É similar ao `BlocConsumer` do pacote `flutter_bloc`.
+O `ConsumerPlus` combina a funcionalidade de `ValueNotifierPlusListener` e `ValueNotifierPlusBuilder`, permitindo ouvir e reconstruir a árvore de widgets em resposta a mudanças de estado. É similar ao `BlocConsumer` do pacote `flutter_bloc`.
 
 #### Exemplo de Uso:
 
@@ -138,7 +138,7 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: ValueNotifierPlusConsumer<CounterNotifier, int>(
+        child: ConsumerPlus<CounterNotifier, int>(
           notifier: counterNotifier,
           listener: (context, state) {
             if (state == 10) {
@@ -161,9 +161,9 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
-### `ValueNotifierPlusListeners e ValueNotifierPlusProviders`
+### `ListenersPlus e ProvidersPlus`
 
-O `ValueNotifierPlusListeners e ValueNotifierPlusProviders` permite registrar múltiplos listeners e providers para diferentes `ValueNotifierPlus` ao mesmo tempo, simplificando o código quando há vários observadores. É similar ao `MultiBlocListener e MultiBlocProvider` do pacote `flutter_bloc`.
+O `ListenersPlus e ProvidersPlus` permite registrar múltiplos listeners e providers para diferentes `ValueNotifierPlus` ao mesmo tempo, simplificando o código quando há vários observadores. É similar ao `MultiBlocListener e MultiBlocProvider` do pacote `flutter_bloc`.
 
 #### Exemplo de Uso:
 
@@ -192,7 +192,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return ValueNotifierPlusProviders(
+    return ProvidersPlus(
       providers: [
         CounterNotifier(),
         AnotherNotifier(),
@@ -217,9 +217,9 @@ class CounterPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text('ValueNotifierPlus Example')),
       body: Center(
-        child: ValueNotifierPlusListeners(
+        child: ListenersPlus(
           listeners: [
-            ValueNotifierPlusListener<CounterNotifier, int>(
+            ListenerPlus<CounterNotifier, int>(
               notifier: counterNotifier,
               listener: (context, state) {
                 if (state == 5) {
@@ -228,7 +228,7 @@ class CounterPage extends StatelessWidget {
               },
               child: Container(),
             ),
-            ValueNotifierPlusListener<AnotherNotifier, int>(
+            ListenerPlus<AnotherNotifier, int>(
               notifier: anotherNotifier,
               listener: (context, state) {
                 if (state == 10) {
@@ -241,13 +241,13 @@ class CounterPage extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              ValueNotifierPlusBuilder<CounterNotifier, int>(
+              BuilderPlus<CounterNotifier, int>(
                 notifier: counterNotifier,
                 builder: (context, state) {
                   return Text('Counter: $state');
                 },
               ),
-              ValueNotifierPlusBuilder<AnotherNotifier, int>(
+              BuilderPlus<AnotherNotifier, int>(
                 notifier: anotherNotifier,
                 builder: (context, state) {
                   return Text('AnotherNotifier: $state');
@@ -277,7 +277,7 @@ Você pode adicionar um observador para monitorar mudanças de estado nos `Value
 import 'package:flutter/material.dart';
 import 'value_notifier_plus.dart';
 
-class MyObserver extends ValueNotifierPlusObserver {
+class MyObserver extends ObserverPlus {
   @override
   void onChange<ValueNotifierPlusType extends ValueNotifierPlus>(
     ValueNotifierPlusType notifier,
