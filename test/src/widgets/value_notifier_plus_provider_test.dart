@@ -18,7 +18,7 @@ void main() {
               final counterOf = context.of<CounterNotifier>();
               expect(counterProvider, counterNotifier);
               expect(counterOf, counterNotifier);
-              return Text(counterOf.value.toString());
+              return Text(counterOf.state.toString());
             },
           ),
         ),
@@ -35,7 +35,7 @@ void main() {
           child: Builder(
             builder: (context) {
               expect(() => context.of<int>(), throwsA(isA<FlutterError>()));
-              return Text(counterNotifier.value.toString());
+              return Text(counterNotifier.state.toString());
             },
           ),
         ),

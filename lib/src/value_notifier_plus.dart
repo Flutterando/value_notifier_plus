@@ -2,17 +2,23 @@ import 'package:flutter/foundation.dart';
 
 import 'value_notifier_plus_observer.dart';
 
-class ValueNotifierPlus<State> extends ValueNotifier<State> {
+class ValueNotifierPlus<State> extends ChangeNotifier implements Listenable {
   static ValueNotifierPlusObserver? observer;
 
-  ValueNotifierPlus(State value) : super(value);
+  ValueNotifierPlus(this._state) {
+    if (kFlutterMemoryAllocationsEnabled) {
+      ChangeNotifier.maybeDispatchObjectCreation(this);
+    }
+  }
 
-  State get state => value;
+  State get state => _state;
+
+  State _state;
 
   void emit(State state) {
-    if (value != state) {
-      value = state;
-      _notifyObserver();
+    if (_state != state) {
+      _state = state;
+      _notify();
     }
   }
 
@@ -20,9 +26,14 @@ class ValueNotifierPlus<State> extends ValueNotifier<State> {
     dispose();
   }
 
+  void _notify() {
+    _notifyObserver();
+    notifyListeners();
+  }
+
   void _notifyObserver() {
     if (observer != null) {
-      observer!.onChange(this, value);
+      observer!.onChange(this, _state);
     }
   }
 
@@ -30,14 +41,14 @@ class ValueNotifierPlus<State> extends ValueNotifier<State> {
   //   Timer? timer;
   //   dynamic lastValue;
 
-  //   return (value) {
-  //     if (value != lastValue) {
+  //   return (State) {
+  //     if (State != lastValue) {
   //       if (timer != null) {
   //         timer!.cancel();
   //       }
 
-  //       lastValue = value;
-  //       timer = Timer(duration, () => func(value));
+  //       lastValue = State;
+  //       timer = Timer(duration, () => func(State));
   //     }
   //   };
   // }
@@ -45,10 +56,10 @@ class ValueNotifierPlus<State> extends ValueNotifier<State> {
   // Function distinct(Function func) {
   //   dynamic lastValue;
 
-  //   return (value) {
-  //     if (value != lastValue) {
-  //       lastValue = value;
-  //       func(value);
+  //   return (State) {
+  //     if (State != lastValue) {
+  //       lastValue = State;
+  //       func(State);
   //     }
   //   };
   // }
