@@ -19,7 +19,7 @@ O `ValueNotifierPlus` é uma classe que estende o `ValueNotifier` padrão do Flu
 
 ## Widgets do `ValueNotifierPlus`
 
-### `ValueNotifierPlusBuilder`
+### `BuilderPlus`
 
 O `BuilderPlus` é um widget que reconstrói sua árvore de widgets sempre que o valor do `ValueNotifierPlus` muda. É similar ao `BlocBuilder` do pacote `flutter_bloc`.
 
