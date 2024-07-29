@@ -1,16 +1,20 @@
 import 'package:flutter/widgets.dart';
-import '../../value_notifier_plus.dart';
 
+import '../../value_notifier_plus.dart';
 import 'callbacks_plus.dart';
+
+typedef BuilderPlusWhen<T> = bool Function(T previous, T current);
 
 class BuilderPlus<N extends ValueNotifierPlus<S>, S> extends StatefulWidget {
   const BuilderPlus({
     Key? key,
     required this.builder,
     required this.notifier,
+    this.buildWhen,
   }) : super(key: key);
   final WidgetBuilderPlus<S> builder;
   final N notifier;
+  final BuilderPlusWhen? buildWhen;
 
   @override
   State<BuilderPlus<N, S>> createState() => _BuilderPlusState<N, S>();
@@ -40,9 +44,12 @@ class _BuilderPlusState<N extends ValueNotifierPlus<S>, S>
   }
 
   void _listener() {
-    setState(() {
-      state = notifier.state;
-    });
+    final buildWhen = widget.buildWhen;
+    if (buildWhen == null || buildWhen(state, notifier.state)) {
+      setState(() {
+        state = notifier.state;
+      });
+    }
   }
 
   @override
