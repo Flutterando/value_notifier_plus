@@ -76,6 +76,23 @@ class CounterPage extends StatelessWidget {
 }
 ```
 
+**Para controlar com precisão quando a função `builder` é chamada, pode-se fornecer opcionalmente um `buildWhen`. O `buildWhen` recebe o estado anterior e o estado atual do `ValueNotifierPlus` e retorna um booleano. Se `buildWhen` retornar verdadeiro, `builder` será chamado com o `state` e o widget será reconstruído. Se `buildWhen` retornar falso, `builder` não será chamado com o `state` e nenhuma reconstrução ocorrerá.**
+
+```dart
+BuilderPlus<CounterNotifier, int>(
+  notifier: counterNotifier,
+  buildWhen: (previousState, state) {
+    // retorna true/false para determinar quando
+    // reconstruir o widget com o novo estado.
+    return state > previousState + 2;
+  },
+  builder: (context, state) {
+    return Text('Counter: $state');
+  },
+),
+```
+
+
 ### `ListenerPlus`
 
 O `ListenerPlus` é um widget que executa uma função sempre que o valor do `ValueNotifierPlus` muda, sem reconstruir a árvore de widgets. É similar ao `BlocListener` do pacote `flutter_bloc`.
